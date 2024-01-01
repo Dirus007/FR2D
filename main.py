@@ -171,7 +171,9 @@ def update_image():
                 largest_face_area = face_area
                 largest_face_location = (top, right, bottom, left)
 
-        names = []
+        # names = []
+        name = "Unknown"
+        sno = -1
         ear = 0
 
         if largest_face_location:
@@ -199,7 +201,6 @@ def update_image():
                     COUNTER = 0
 
             top, right, bottom, left = largest_face_location
-            name = "Unknown"
 
             for encoding in face_encodings:
                 if data["encodings"]:
@@ -207,18 +208,19 @@ def update_image():
                     if len(face_distances) > 0:
                         best_match_index = np.argmin(face_distances)
                         if face_distances[best_match_index] < FACE_DISTANCE_THRESHOLD:
+                            sno = data["service_number"][best_match_index]
                             name = data["names"][best_match_index]
 
                 # Face Bounding Box
                 # BGR
                 box_color = (0, 0, 255)
-                if TOTAL == 0 and name != "Unknown":
+                if TOTAL == 0 and sno != -1:
                     box_color = (0, 255, 0)
                     if proceed_button is None:
                         create_proceed_button()
                     hide_register_button()
 
-                if name == "Unknown":
+                if sno == -1:
                     if register_button is None:
                         create_register_button()
                 else:
@@ -227,7 +229,7 @@ def update_image():
                 cv2.rectangle(frame, (left, top), (right, bottom), box_color, 2)
                 y = top - 15 if top - 15 > 15 else top + 15
                 cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX, 0.75, box_color, 2)
-                names.append(name)
+                # names.append(name)
 
         # Blink Count and EAR Text
         blink_text = f"Blinks: {TOTAL}"
@@ -240,12 +242,10 @@ def update_image():
         # label_ear.config(text=ear_text)
 
         label_blink_count_secret.config(text=TOTAL)
-
-        if len(names) > 0:
-            if names[0] == "Unknown":
-                label_message.config(text=f"Unknown Face")
-            else:
-                label_message.config(text=f"Welcome {names[0]}, face identified")
+        if sno == -1:
+            label_message.config(text=f"Unknown Face")
+        else:
+            label_message.config(text=f"Welcome {name}, face identified")
 
         # Display in Tkinter
         cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
