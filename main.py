@@ -8,46 +8,83 @@ import utils.loader
 import utils.frame_handling
 import utils.registration
 import utils.redirect
+import json
+from testing.speed.FPS import FPSMeter
 import time
 
 
 def load_settings(config_file_dir):
-    # Default if not exist
-    # Load if exist
+    try:
+        with open(config_file_dir, 'r') as settings_file:
+            settings_data = json.load(settings_file)
 
-    return settings_file
-
+    except FileNotFoundError:
+        default_settings = {
+            "EAR_THRESH": 0.20,
+            "BLINK_CONSEC_FRAMES": 1,
+            "COUNTER": 0,
+            "BLINKS_REQUIRED": 3,
+            "FRAME_WIDTH": 500,
+            "FACE_DISTANCE_THRESHOLD": 0.45,
+            "ADMIN_PASSWORD": "admin",
+            "UNMATCH_BOX_COLOR": (0, 0, 255),
+            "MATCH_BOX_COLOR": (0, 255, 0),
+            "NEAREST_FACE_METHOD": 'euclidean',
+            "zoom_level": 100,
+        }
+        with open(config_file_dir, 'w') as new_settings_file:
+            json.dump(default_settings, new_settings_file, indent=2)
+        settings_data = default_settings
+    return settings_data
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 config_file_dir = os.path.join(script_dir, 'FR_2DConfigs.json')
 
-settings_file = load_settings(config_file_dir)
+settings = load_settings(config_file_dir)
 
-EAR_THRESH = 0.20
-BLINK_CONSEC_FRAMES = 1
-COUNTER = 0
-BLINKS_REQUIRED = 3
+EAR_THRESH = settings.get("EAR_THRESH")
+BLINK_CONSEC_FRAMES = settings.get("EAR_THRESH")
+COUNTER = settings.get("EAR_THRESH")
+BLINKS_REQUIRED = settings.get("BLINKS_REQUIRED")
 TOTAL = BLINKS_REQUIRED
-FRAME_WIDTH = 500
+FRAME_WIDTH = settings.get("FRAME_WIDTH")
 proceed_button = None
-FACE_DISTANCE_THRESHOLD = 0.45
-ADMIN_PASSWORD = "admin"
+FACE_DISTANCE_THRESHOLD = settings.get("FACE_DISTANCE_THRESHOLD")
+ADMIN_PASSWORD = settings.get("ADMIN_PASSWORD")
 register_button = None
 encodings_file = "encodings.pickle"
-UNMATCH_BOX_COLOR = (0, 0, 255)
-MATCH_BOX_COLOR = (0, 255, 0)
-NEAREST_FACE_METHOD = 'euclidean'
+UNMATCH_BOX_COLOR = settings.get("UNMATCH_BOX_COLOR")
+MATCH_BOX_COLOR = settings.get("MATCH_BOX_COLOR")
+NEAREST_FACE_METHOD = settings.get("NEAREST_FACE_METHOD")
 button_config = {
         "bg": "LightGray",
         "fg": "Red",
         "font": ("Arial", 8),
     }
 
-zoom_level = 100
+zoom_level = settings.get("zoom_level")
 previous_sno = -1
 
 data, _ = utils.loader.load_data(encodings_file, 'normal', '')
 
+
+def update_settings(config_file_dir):
+    with open(config_file_dir, 'r') as settings_file:
+        settings_data = json.load(settings_file)
+
+    settings_data["EAR_THRESH"] = EAR_THRESH
+    settings_data["BLINK_CONSEC_FRAMES"] = BLINK_CONSEC_FRAMES
+    settings_data["COUNTER"] = COUNTER
+    settings_data["BLINKS_REQUIRED"] = BLINKS_REQUIRED
+    settings_data["FRAME_WIDTH"] = FRAME_WIDTH
+    settings_data["FACE_DISTANCE_THRESHOLD"] = FACE_DISTANCE_THRESHOLD
+    settings_data["ADMIN_PASSWORD"] = ADMIN_PASSWORD
+    settings_data["UNMATCH_BOX_COLOR"] = UNMATCH_BOX_COLOR
+    settings_data["NEAREST_FACE_METHOD"] = NEAREST_FACE_METHOD
+    settings_data["zoom_level"] = zoom_level
+
+    with open(config_file_dir, 'w') as new_settings_file:
+        json.dump(settings_data, new_settings_file, indent=2)
 
 def create_proceed_button():
     utils.redirect.redirect(proceed_button, TOTAL)
@@ -119,9 +156,12 @@ def register_button_visibility(sno, register_button):
         hide_register_button()
 
 
+fps_meter = FPSMeter()
+
 def update_image():
     global COUNTER, TOTAL, proceed_button, register_button, previous_sno
     ret, frame = cap.read()
+    fps_meter.record_frame_time()
     if ret:
         frame = utils.frame_handling.zoom_frame(frame, zoom_level)
         face_locations, rgb_frame, frame = utils.frame_handling.get_all_faces(frame, FRAME_WIDTH)
@@ -264,7 +304,7 @@ gear_button = tk.Button(window, image=gear_icon, command=open_settings_window)
 gear_button.place(relx=0.97, rely=0.03, anchor="ne")
 
 
-button_list = []
+button_list = ["delete", "view"]
 create_specified_buttons(frame_controls, button_list)
 
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
@@ -274,3 +314,6 @@ window.mainloop()
 
 cap.release()
 cv2.destroyAllWindows()
+
+update_settings(config_file_dir)
+fps_meter.plot_graph()
