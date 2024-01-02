@@ -27,7 +27,7 @@ button_config = {
         "fg": "Red",
         "font": ("Arial", 8),
     }
-zoom_level = 150
+zoom_level = 100
 
 
 data, _ = utils.loader.load_data(encodings_file, 'normal', '')
@@ -196,6 +196,28 @@ def create_specified_buttons(frame, allowed_buttons):
             button = tk.Button(frame, text=text, command=command,
                                bg=button_config["bg"], fg=button_config["fg"], font=button_config["font"])
             button.pack()
+
+
+def open_settings_window():
+    settings_window = tk.Toplevel(window)
+    settings_window.title("Settings")
+
+    tk.Label(settings_window, text="Zoom Level:").pack()
+    zoom_level_entry = tk.Entry(settings_window)
+    zoom_level_entry.insert(0, str(zoom_level))
+    zoom_level_entry.pack()
+
+    def apply_settings():
+        global zoom_level
+        zoom_level = int(zoom_level_entry.get())
+        settings_window.destroy()
+
+    tk.Button(settings_window, text="Apply", command=apply_settings).pack()
+
+
+#gear_icon = ImageTk.PhotoImage(Image.open(r"C:\Users\Mukul  Dev\PycharmProjects\FR_2Dv3\images\gear.jpg"))
+gear_button = tk.Button(window, command=open_settings_window)
+gear_button.place(relx=0.97, rely=0.03, anchor="ne")
 
 
 button_list = []
