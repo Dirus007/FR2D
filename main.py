@@ -10,7 +10,6 @@ import utils.registration
 import utils.redirect
 import json
 from testing.speed.FPS import FPSMeter
-import time
 
 
 def load_settings(config_file_dir):

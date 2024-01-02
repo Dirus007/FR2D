@@ -47,7 +47,7 @@ def register_face(data, TOTAL, ADMIN_PASSWORD, cap, encodings_file, BLINKS_REQUI
 
                     if service_number and name:
                         if service_number.isdigit() and len(service_number) in [5, 6]:
-                            if service_number in data["names"]:
+                            if service_number in data["service_number"]:
                                 messagebox.showerror("Error", f"Service number {service_number} is already registered.")
                             else:
                                 data["encodings"].append(face_encoding)
