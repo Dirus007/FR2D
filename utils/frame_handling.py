@@ -59,3 +59,24 @@ def find_nearest_face(data, encoding, FACE_DISTANCE_THRESHOLD):
             name = data["names"][best_match_index]
 
     return sno, name
+
+
+def landmarks_list_and_encodings(rgb_frame, largest_face_location):
+    face_landmarks_list = face_recognition.face_landmarks(rgb_frame, [largest_face_location])
+    face_encodings = face_recognition.face_encodings(rgb_frame, [largest_face_location])
+
+    return face_landmarks_list, face_encodings
+
+
+def zoom_frame(frame, zoom_level):
+    original_height, original_width = frame.shape[:2]
+    if zoom_level != 100:
+        scale_factor = zoom_level / 100
+        new_width = int(original_width / scale_factor)
+        new_height = int(original_height / scale_factor)
+        left = (original_width - new_width) // 2
+        top = (original_height - new_height) // 2
+        frame = frame[top:top + new_height, left:left + new_width]
+        frame = cv2.resize(frame, (original_width, original_height))
+
+    return frame

@@ -1,15 +1,12 @@
 import tkinter as tk
-from tkinter import messagebox
 from PIL import Image, ImageTk
 import cv2
-import face_recognition
-import subprocess
-import sys
 import utils.deletion
 import utils.viewing
 import utils.loader
 import utils.frame_handling
 import utils.registration
+import utils.redirect
 
 
 EAR_THRESH = 0.20
@@ -30,21 +27,14 @@ button_config = {
         "fg": "Red",
         "font": ("Arial", 8),
     }
+zoom_level = 100
+
 
 data, _ = utils.loader.load_data(encodings_file, 'normal', '')
 
 
 def create_proceed_button():
-    global proceed_button, TOTAL
-    if proceed_button is None:
-        if TOTAL == 0:
-            messagebox.showinfo("Authentication Successful", "You are authenticated !")
-            # path = r"C:\Users\Mukul  Dev\OneDrive\Desktop\03 John Wick Chapter 3 Parabellum - Action 2019 Eng Subs 720p [H264-mp4].mp4"
-            # run_path = r"C:\Program Files\VideoLAN\VLC\vlc.exe"
-            path = r"C:\Users\Mukul  Dev\OneDrive\Desktop\Markdown to Table\run.pyw"
-            run_path = r"C:\Users\Mukul  Dev\AppData\Local\Programs\Python\Python311\pythonw.exe"
-            subprocess.Popen([run_path, path])
-            sys.exit()
+    utils.redirect.redirect(proceed_button, TOTAL)
 
 
 def create_register_button():
@@ -117,6 +107,7 @@ def update_image():
     global COUNTER, TOTAL, proceed_button, register_button
     ret, frame = cap.read()
     if ret:
+        frame = utils.frame_handling.zoom_frame(frame, zoom_level)
         face_locations, rgb_frame, frame = utils.frame_handling.get_all_faces(frame, FRAME_WIDTH)
         largest_face_location = utils.frame_handling.find_most_prominent_face(face_locations)
 
@@ -125,8 +116,7 @@ def update_image():
         ear = 0
 
         if largest_face_location:
-            face_landmarks_list = face_recognition.face_landmarks(rgb_frame, [largest_face_location])
-            face_encodings = face_recognition.face_encodings(rgb_frame, [largest_face_location])
+            face_landmarks_list, face_encodings = utils.frame_handling.landmarks_list_and_encodings(rgb_frame, largest_face_location)
             ear = utils.frame_handling.process_eyes(frame, face_landmarks_list[0])
             update_counter_and_total(ear)
 
@@ -208,8 +198,29 @@ def create_specified_buttons(frame, allowed_buttons):
             button.pack()
 
 
-def create_specified_labels():
-    pass
+def open_settings_window():
+    settings_window = tk.Toplevel(window)
+    settings_window.title("Settings")
+
+    tk.Label(settings_window, text="Zoom Level:").pack()
+    zoom_level_entry = tk.Entry(settings_window)
+    zoom_level_entry.insert(0, str(zoom_level))
+    zoom_level_entry.pack()
+
+    def apply_settings():
+        global zoom_level
+        zoom_level = int(zoom_level_entry.get())
+        settings_window.destroy()
+
+    tk.Button(settings_window, text="Apply", command=apply_settings).pack()
+
+
+original_icon = Image.open(r"C:\Users\Mukul  Dev\PycharmProjects\FR_2Dv3\images\gear.jpg")
+resized_icon = original_icon.resize((30, 30))
+gear_icon = ImageTk.PhotoImage(resized_icon)
+gear_button = tk.Button(window, image=gear_icon, command=open_settings_window)
+gear_button.place(relx=0.97, rely=0.03, anchor="ne")
+
 
 button_list = []
 create_specified_buttons(frame_controls, button_list)
