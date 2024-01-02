@@ -163,7 +163,7 @@ def update_image():
     fps_meter.record_frame_time()
     if ret:
         frame = utils.frame_handling.zoom_frame(frame, zoom_level)
-        face_locations, rgb_frame, frame = utils.frame_handling.get_all_faces(frame, FRAME_WIDTH)
+        face_locations, rgb_frame, frame = utils.frame_handling.get_all_faces(frame, FRAME_WIDTH, enable_adaptive_threshold = False)
         largest_face_location = utils.frame_handling.find_most_prominent_face(face_locations)
 
         name = "Unknown"
@@ -267,10 +267,8 @@ def open_settings_window():
     zoom_level_entry.pack()
 
     try:
-        # Attempt to get available cameras
         available_cameras = utils.frame_handling.get_available_cameras()
     except Exception as e:
-        # Handle the exception, e.g., display an error message
         tk.Label(settings_window, text=f"Error: {str(e)}").pack()
         available_cameras = []
 
@@ -282,7 +280,7 @@ def open_settings_window():
         camera_dropdown.pack()
 
     def apply_settings():
-        global zoom_level , cap
+        global zoom_level, cap
         zoom_level = int(zoom_level_entry.get())
         if cap:
             cap.release()
@@ -303,7 +301,7 @@ gear_button = tk.Button(window, image=gear_icon, command=open_settings_window)
 gear_button.place(relx=0.97, rely=0.03, anchor="ne")
 
 
-button_list = ["delete", "view"]
+button_list = ["view"]
 create_specified_buttons(frame_controls, button_list)
 
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)

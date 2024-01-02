@@ -1,7 +1,7 @@
 {
   "EAR_THRESH": 0.2,
   "BLINK_CONSEC_FRAMES": 0.2,
-  "COUNTER": 2,
+  "COUNTER": 0,
   "BLINKS_REQUIRED": 3,
   "FRAME_WIDTH": 500,
   "FACE_DISTANCE_THRESHOLD": 0.45,
@@ -17,6 +17,6 @@
     0
   ],
   "NEAREST_FACE_METHOD": "euclidean",
-  "zoom_level": 100,
+  "zoom_level": 115,
   "save_as_button_padding": 10
 }

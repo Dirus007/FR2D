@@ -31,12 +31,28 @@ def eye_aspect_ratio(eye):
     return ear
 
 
-def get_all_faces(frame, FRAME_WIDTH):
+def get_all_faces(frame, FRAME_WIDTH, enable_adaptive_threshold):
     frame = imutils.resize(frame, width=FRAME_WIDTH)
-    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    face_locations = face_recognition.face_locations(rgb_frame)
+    if not enable_adaptive_threshold:
+        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        face_locations = face_recognition.face_locations(rgb_frame)
 
-    return face_locations, rgb_frame, frame
+        return face_locations, rgb_frame, frame
+    else:
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        maxValue = 255
+        adaptiveMethod = cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+        thresholdType = cv2.THRESH_BINARY
+        blockSize = 11  # Size of a pixel neighborhood that is used to calculate a threshold value
+        C = 2  # Constant subtracted from the mean or weighted mean
+
+        thresholded_frame = cv2.adaptiveThreshold(gray, maxValue, adaptiveMethod, thresholdType, blockSize, C)
+        thresholded_frame_bgr = cv2.cvtColor(thresholded_frame, cv2.COLOR_GRAY2BGR)
+        rgb_frame = cv2.cvtColor(thresholded_frame_bgr, cv2.COLOR_BGR2RGB)
+
+        face_locations = face_recognition.face_locations(rgb_frame)
+
+        return face_locations, rgb_frame, frame
 
 
 def find_most_prominent_face(face_locations):
