@@ -215,8 +215,10 @@ def open_settings_window():
     tk.Button(settings_window, text="Apply", command=apply_settings).pack()
 
 
-#gear_icon = ImageTk.PhotoImage(Image.open(r"C:\Users\Mukul  Dev\PycharmProjects\FR_2Dv3\images\gear.jpg"))
-gear_button = tk.Button(window, command=open_settings_window)
+original_icon = Image.open(r"C:\Users\Mukul  Dev\PycharmProjects\FR_2Dv3\images\gear.jpg")
+resized_icon = original_icon.resize((30, 30))
+gear_icon = ImageTk.PhotoImage(resized_icon)
+gear_button = tk.Button(window, image=gear_icon, command=open_settings_window)
 gear_button.place(relx=0.97, rely=0.03, anchor="ne")
 
 
