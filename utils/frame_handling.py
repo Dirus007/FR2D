@@ -3,7 +3,17 @@ import cv2
 import imutils
 import face_recognition
 
-
+def get_available_cameras():
+    camera_list = []
+    i = 0
+    while True:
+        cap = cv2.VideoCapture(i, cv2.CAP_DSHOW)
+        if not cap.isOpened():
+            break
+        camera_list.append(i)
+        cap.release()
+        i += 1
+    return camera_list
 def eye_aspect_ratio(eye):
     A = np.linalg.norm(eye[1] - eye[5])
     B = np.linalg.norm(eye[2] - eye[4])
