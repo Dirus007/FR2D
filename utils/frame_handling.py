@@ -2,6 +2,13 @@ import numpy as np
 import cv2
 import imutils
 import face_recognition
+from scipy.spatial import distance
+
+
+def float_to_binary(encoding, threshold=0.0):
+    binary_encoding = np.where(encoding > threshold, 1, 0)
+    return binary_encoding
+
 
 def get_available_cameras():
     camera_list = []
@@ -14,6 +21,8 @@ def get_available_cameras():
         cap.release()
         i += 1
     return camera_list
+
+
 def eye_aspect_ratio(eye):
     A = np.linalg.norm(eye[1] - eye[5])
     B = np.linalg.norm(eye[2] - eye[4])
@@ -58,10 +67,27 @@ def process_eyes(frame, face_landmarks):
     return ear
 
 
-def find_nearest_face(data, encoding, FACE_DISTANCE_THRESHOLD):
+def find_nearest_face(data, encoding, FACE_DISTANCE_THRESHOLD, method):
     name = "Unknown"
     sno = -1
-    face_distances = face_recognition.face_distance(data["encodings"], encoding)
+    face_distances = []
+    if method == 'euclidean':
+        # L2 Norm
+        face_distances = face_recognition.face_distance(data["encodings"], encoding)
+    elif method == 'manhattan':
+        # L1 Norm
+        face_distances = distance.cdist([encoding], data["encodings"], 'cityblock')[0]
+    elif method == 'cosine':
+        # Cosine Similarity
+        face_distances = distance.cdist([encoding], data["encodings"], 'cosine')[0]
+    elif method == 'mahalanobis':
+        V = np.cov(data["encodings"], rowvar=False)
+        face_distances = distance.cdist([encoding], data["encodings"], 'mahalanobis', V=V)[0]
+    elif method == 'hamming':
+        binary_encoding = float_to_binary(encoding)
+        binary_encodings_data = np.array([float_to_binary(enc) for enc in data["encodings"]])
+        face_distances = distance.cdist([binary_encoding], binary_encodings_data, 'hamming')[0]
+
     if len(face_distances) > 0:
         best_match_index = np.argmin(face_distances)
         if face_distances[best_match_index] < FACE_DISTANCE_THRESHOLD:
