@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8000d9ed-dc27-4ffd-8351-58d911531a48" name="Changes" comment="Added Settings Window">
-      <change beforePath="$PROJECT_DIR$/encodings.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/encodings.pickle" afterDir="false" />
+    <list default="true" id="8000d9ed-dc27-4ffd-8351-58d911531a48" name="Changes" comment="Added Best Distance Testing">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing/face_distance/college_pic_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing/face_distance/formal_pic_analysis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing/face_distance/test_distance.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing/face_distance/test_distance.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/frame_handling.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/frame_handling.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/redirect.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/redirect.py" afterDir="false" />
     </list>
     <list id="d7248642-58e0-4d41-8610-a746275ffc2f" name="Changes by user" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -72,6 +73,7 @@
   "keyToString": {
     "Python.api.executor": "Run",
     "Python.create_video.executor": "Run",
+    "Python.frame_handling.executor": "Run",
     "Python.main.executor": "Run",
     "Python.test_distance.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -139,7 +141,7 @@
       <workItem from="1704135355504" duration="1209000" />
       <workItem from="1704167179140" duration="11069000" />
       <workItem from="1704178481177" duration="286000" />
-      <workItem from="1704179146910" duration="14077000" />
+      <workItem from="1704179146910" duration="19016000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -221,7 +223,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704185599658</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Added Best Distance Testing">
+      <option name="closed" value="true" />
+      <created>1704198046672</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1704198046672</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,12 +266,14 @@
     <MESSAGE value="Cleaned Registration Process" />
     <MESSAGE value="Added Zoom Features" />
     <MESSAGE value="Added Settings Window" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Settings Window" />
+    <MESSAGE value="Added Best Distance Testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Best Distance Testing" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/FR_2Dv3$create_video.coverage" NAME="create_video Coverage Results" MODIFIED="1704196510051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testing/face_distance" />
-    <SUITE FILE_PATH="coverage/FR_2Dv3$test_distance.coverage" NAME="test_distance Coverage Results" MODIFIED="1704197496151" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testing/face_distance" />
-    <SUITE FILE_PATH="coverage/FR_2Dv3$main.coverage" NAME="main Coverage Results" MODIFIED="1704196397057" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FR_2Dv3$test_distance.coverage" NAME="test_distance Coverage Results" MODIFIED="1704201000074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testing/face_distance" />
+    <SUITE FILE_PATH="coverage/FR_2Dv3$main.coverage" NAME="main Coverage Results" MODIFIED="1704202584466" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FR_2Dv3$frame_handling.coverage" NAME="frame_handling Coverage Results" MODIFIED="1704200525968" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/FR_2Dv3$api.coverage" NAME="api Coverage Results" MODIFIED="1704197021074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/.venv/Lib/site-packages/face_recognition" />
   </component>
 </project>

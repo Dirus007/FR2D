@@ -79,7 +79,8 @@ def find_nearest_face(data, encoding, FACE_DISTANCE_THRESHOLD, method):
         face_distances = distance.cdist([encoding], data["encodings"], 'cityblock')[0]
     elif method == 'cosine':
         # Cosine Similarity
-        face_distances = distance.cdist([encoding], data["encodings"], 'cosine')[0]
+        face_distances = 1 - distance.cdist([encoding], data["encodings"], 'cosine')[0]
+
     elif method == 'mahalanobis':
         V = np.cov(data["encodings"], rowvar=False)
         face_distances = distance.cdist([encoding], data["encodings"], 'mahalanobis', V=V)[0]
