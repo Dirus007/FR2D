@@ -10,6 +10,19 @@ import utils.registration
 import utils.redirect
 import time
 
+
+def load_settings(config_file_dir):
+    # Default if not exist
+    # Load if exist
+
+    return settings_file
+
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+config_file_dir = os.path.join(script_dir, 'FR_2DConfigs.json')
+
+settings_file = load_settings(config_file_dir)
+
 EAR_THRESH = 0.20
 BLINK_CONSEC_FRAMES = 1
 COUNTER = 0
@@ -243,7 +256,6 @@ def open_settings_window():
     tk.Button(settings_window, text="Apply", command=apply_settings).pack()
 
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
 gear_img_dir = os.path.join(script_dir, "images\gear.jpg")
 original_icon = Image.open(gear_img_dir)
 resized_icon = original_icon.resize((30, 30))
