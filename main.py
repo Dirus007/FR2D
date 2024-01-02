@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox, OptionMenu
 from PIL import Image, ImageTk
 import cv2
 import utils.deletion
@@ -7,7 +8,6 @@ import utils.loader
 import utils.frame_handling
 import utils.registration
 import utils.redirect
-
 
 EAR_THRESH = 0.20
 BLINK_CONSEC_FRAMES = 1
@@ -28,8 +28,6 @@ button_config = {
         "font": ("Arial", 8),
     }
 zoom_level = 100
-
-
 data, _ = utils.loader.load_data(encodings_file, 'normal', '')
 
 
@@ -207,15 +205,39 @@ def open_settings_window():
     zoom_level_entry.insert(0, str(zoom_level))
     zoom_level_entry.pack()
 
-    def apply_settings():
-        global zoom_level
-        zoom_level = int(zoom_level_entry.get())
-        settings_window.destroy()
+    try:
+        # Attempt to get available cameras
+        available_cameras = utils.frame_handling.get_available_cameras()
+    except Exception as e:
+        # Handle the exception, e.g., display an error message
+        tk.Label(settings_window, text=f"Error: {str(e)}").pack()
+        available_cameras = []
 
+    if available_cameras:
+        tk.Label(settings_window, text="Select Camera:").pack()
+        camera_var = tk.StringVar()
+        camera_var.set(str(available_cameras[0]))
+        camera_dropdown = tk.OptionMenu(settings_window, camera_var, *map(str, available_cameras))
+        camera_dropdown.pack()
+
+    def apply_settings():
+        global zoom_level , cap
+        zoom_level = int(zoom_level_entry.get())
+        if cap:
+            cap.release()
+
+        if available_cameras:
+            # Get the selected camera index
+            selected_camera = int(camera_var.get())
+
+            # Create a new capture object with the DirectShow backend
+            cap = cv2.VideoCapture(selected_camera, cv2.CAP_DSHOW)
+
+        settings_window.destroy()
     tk.Button(settings_window, text="Apply", command=apply_settings).pack()
 
 
-original_icon = Image.open(r"C:\Users\Mukul  Dev\PycharmProjects\FR_2Dv3\images\gear.jpg")
+original_icon = Image.open(r"D:\FR_2d\FR_2Dv3\images\gear.jpg")
 resized_icon = original_icon.resize((30, 30))
 gear_icon = ImageTk.PhotoImage(resized_icon)
 gear_button = tk.Button(window, image=gear_icon, command=open_settings_window)
@@ -225,7 +247,7 @@ gear_button.place(relx=0.97, rely=0.03, anchor="ne")
 button_list = []
 create_specified_buttons(frame_controls, button_list)
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 update_image()
 window.mainloop()
 
