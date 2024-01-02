@@ -4,11 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8000d9ed-dc27-4ffd-8351-58d911531a48" name="Changes" comment="Minor Fixes">
+    <list default="true" id="8000d9ed-dc27-4ffd-8351-58d911531a48" name="Changes" comment="Made settings file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encodings.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/encodings.pickle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing/speed/FPS.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing/speed/FPS.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/registration.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/registration.py" afterDir="false" />
     </list>
-    <list id="d7248642-58e0-4d41-8610-a746275ffc2f" name="Changes by user" comment="" />
+    <list id="d7248642-58e0-4d41-8610-a746275ffc2f" name="Changes by user" comment="">
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/registration.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/registration.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,6 +58,33 @@
         <option name="url" value="https://github.com/Dirus007/FR2D.git" />
       </UrlAndAccount>
     </option>
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/utils/registration.py">
+      <ranges>
+        <range start1="0" end1="0" start2="0" end2="1" changelist="d7248642-58e0-4d41-8610-a746275ffc2f" />
+        <range start1="19" end1="19" start2="20" end2="89" changelist="8000d9ed-dc27-4ffd-8351-58d911531a48" />
+        <range start1="43" end1="44" start2="113" end2="114" changelist="8000d9ed-dc27-4ffd-8351-58d911531a48" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/main.py">
+      <ranges>
+        <range start1="10" end1="10" start2="10" end2="12" changelist="8000d9ed-dc27-4ffd-8351-58d911531a48" />
+        <range start1="14" end1="16" start2="16" end2="19" changelist="d7248642-58e0-4d41-8610-a746275ffc2f" />
+        <range start1="17" end1="19" start2="20" end2="38" changelist="d7248642-58e0-4d41-8610-a746275ffc2f" />
+        <range start1="23" end1="24" start2="42" end2="43" changelist="8000d9ed-dc27-4ffd-8351-58d911531a48" />
+        <range start1="25" end1="29" start2="44" end2="48" changelist="d7248642-58e0-4d41-8610-a746275ffc2f" />
+        <range start1="30" end1="31" start2="49" end2="50" changelist="d7248642-58e0-4d41-8610-a746275ffc2f" />
+        <range start1="32" end1="34" start2="51" end2="53" changelist="d7248642-58e0-4d41-8610-a746275ffc2f" />
+        <range start1="36" end1="39" start2="55" end2="58" changelist="d7248642-58e0-4d41-8610-a746275ffc2f" />
+        <range start1="45" end1="46" start2="64" end2="65" changelist="d7248642-58e0-4d41-8610-a746275ffc2f" />
+        <range start1="50" end1="50" start2="69" end2="87" changelist="8000d9ed-dc27-4ffd-8351-58d911531a48" />
+        <range start1="120" end1="120" start2="157" end2="159" changelist="8000d9ed-dc27-4ffd-8351-58d911531a48" />
+        <range start1="124" end1="124" start2="163" end2="164" changelist="8000d9ed-dc27-4ffd-8351-58d911531a48" />
+        <range start1="266" end1="267" start2="306" end2="307" changelist="8000d9ed-dc27-4ffd-8351-58d911531a48" />
+        <range start1="276" end1="276" start2="316" end2="320" changelist="8000d9ed-dc27-4ffd-8351-58d911531a48" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -137,7 +170,7 @@
       <workItem from="1704135355504" duration="1209000" />
       <workItem from="1704167179140" duration="11069000" />
       <workItem from="1704178481177" duration="286000" />
-      <workItem from="1704179146910" duration="19596000" />
+      <workItem from="1704179146910" duration="23151000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -235,7 +268,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704202878265</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Made settings file">
+      <option name="closed" value="true" />
+      <created>1704203285104</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1704203285104</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,12 +313,13 @@
     <MESSAGE value="Added Settings Window" />
     <MESSAGE value="Added Best Distance Testing" />
     <MESSAGE value="Minor Fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor Fixes" />
+    <MESSAGE value="Made settings file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made settings file" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/FR_2Dv3$create_video.coverage" NAME="create_video Coverage Results" MODIFIED="1704196510051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testing/face_distance" />
     <SUITE FILE_PATH="coverage/FR_2Dv3$test_distance.coverage" NAME="test_distance Coverage Results" MODIFIED="1704201000074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testing/face_distance" />
-    <SUITE FILE_PATH="coverage/FR_2Dv3$main.coverage" NAME="main Coverage Results" MODIFIED="1704202721932" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FR_2Dv3$main.coverage" NAME="main Coverage Results" MODIFIED="1704206813748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/FR_2Dv3$frame_handling.coverage" NAME="frame_handling Coverage Results" MODIFIED="1704200525968" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/FR_2Dv3$api.coverage" NAME="api Coverage Results" MODIFIED="1704197021074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/.venv/Lib/site-packages/face_recognition" />
   </component>

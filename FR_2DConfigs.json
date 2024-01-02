@@ -1,0 +1,22 @@
+{
+  "EAR_THRESH": 0.2,
+  "BLINK_CONSEC_FRAMES": 0.2,
+  "COUNTER": 2,
+  "BLINKS_REQUIRED": 3,
+  "FRAME_WIDTH": 500,
+  "FACE_DISTANCE_THRESHOLD": 0.45,
+  "ADMIN_PASSWORD": "admin",
+  "UNMATCH_BOX_COLOR": [
+    0,
+    0,
+    255
+  ],
+  "MATCH_BOX_COLOR": [
+    0,
+    255,
+    0
+  ],
+  "NEAREST_FACE_METHOD": "euclidean",
+  "zoom_level": 100,
+  "save_as_button_padding": 10
+}
