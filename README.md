@@ -10,15 +10,15 @@ Our 2D Face Recognition System leverages the Python ecosystem to deliver a robus
 - **Modular Design**: Adopts a modular architecture for easy maintainability and future enhancements.
 
 ## Installation
-# Clone the repository
+### Clone the repository
 ```bash
 git clone https://github.com/your-username/your-repository-name.git
 ```
-# Navigate to the project directory
+### Navigate to the project directory
 ```bash
 cd your-repository-name
 ```
-# Install the required dependencies
+### Install the required dependencies
 ```bash
 pip install -r requirements.txt
 ```
