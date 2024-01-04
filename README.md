@@ -1,25 +1,24 @@
-# Simple 2D Face Recognition System
+# 2D Face Recognition System
 
-## Description
-This facial recognition system is developed in Python, using Tkinter for the graphical user interface, OpenCV for image processing, and the `face_recognition` library for facial recognition tasks. It provides functionalities to register, view, and delete faces from a database. Additionally, it uses blink detection for user authentication.
+## Abstract
+Our 2D Face Recognition System leverages the Python ecosystem to deliver a robust solution for facial recognition needs. It incorporates Tkinter for the graphical user interface, OpenCV for image processing, and the `face_recognition` library for advanced facial recognition tasks. With a focus on security, this system employs anti-spoofing techniques through blink detection, ensuring that authentication is both secure and reliable.
 
-## Features
-- **Face Registration**: Allows users to register a new face in the system.
-- **Face Deletion**: Enables the removal of a registered face from the system.
-- **View Registered Faces**: Displays all faces stored in the database.
-- **Authentication**: Users are authenticated based on face recognition and blink detection.
-
-## Requirements
-- Python 3.8
-- OpenCV (`cv2`)
-- face_recognition
-- NumPy
-- Pillow
-- Tkinter
-- imutils
+## Key Features
+- **Precise Detection**: The system ensures accurate detection and identification of individuals.
+- **Anti-Spoofing**: Implements blink detection to differentiate between real persons and static images.
+- **User Management**: Facilitates new face registrations and handles data management effectively.
+- **Modular Design**: Adopts a modular architecture for easy maintainability and future enhancements.
 
 ## Installation
-Install the required libraries using the following command:
+# Clone the repository
+```bash
+git clone https://github.com/your-username/your-repository-name.git
+```
+# Navigate to the project directory
+```bash
+cd your-repository-name
+```
+# Install the required dependencies
 ```bash
 pip install -r requirements.txt
 ```
