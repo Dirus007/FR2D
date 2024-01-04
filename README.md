@@ -12,11 +12,11 @@ Our 2D Face Recognition System leverages the Python ecosystem to deliver a robus
 ## Installation
 ### Clone the repository
 ```bash
-git clone https://github.com/your-username/your-repository-name.git
+git clone https://github.com/your-username/FR2D.git
 ```
 ### Navigate to the project directory
 ```bash
-cd your-repository-name
+cd FR2D
 ```
 ### Install the required dependencies
 ```bash
