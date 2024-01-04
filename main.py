@@ -19,10 +19,9 @@ def load_settings(config_file_dir):
 
     except FileNotFoundError:
         default_settings = {
-            "EAR_THRESH": 0.20,
-            "BLINK_CONSEC_FRAMES": 1,
-            "COUNTER": 0,
-            "BLINKS_REQUIRED": 3,
+            "EAR_THRESH": 0.24,
+            "BLINK_CONSEC_FRAMES": 2,
+            "BLINKS_REQUIRED": 4,
             "FRAME_WIDTH": 500,
             "FACE_DISTANCE_THRESHOLD": 0.45,
             "ADMIN_PASSWORD": "admin",
@@ -41,14 +40,14 @@ config_file_dir = os.path.join(script_dir, 'FR_2DConfigs.json')
 
 settings = load_settings(config_file_dir)
 
-EAR_THRESH = float(settings.get("EAR_THRESH"))
-BLINK_CONSEC_FRAMES = int(settings.get("EAR_THRESH"))
-COUNTER = int(settings.get("EAR_THRESH"))
-BLINKS_REQUIRED = int(settings.get("BLINKS_REQUIRED"))
+COUNTER = 0
+EAR_THRESH = settings.get("EAR_THRESH")
+BLINK_CONSEC_FRAMES = settings.get("EAR_THRESH")
+BLINKS_REQUIRED = settings.get("BLINKS_REQUIRED")
 TOTAL = BLINKS_REQUIRED
-FRAME_WIDTH = int(settings.get("FRAME_WIDTH"))
+FRAME_WIDTH = settings.get("FRAME_WIDTH")
 proceed_button = None
-FACE_DISTANCE_THRESHOLD = float(settings.get("FACE_DISTANCE_THRESHOLD"))
+FACE_DISTANCE_THRESHOLD = settings.get("FACE_DISTANCE_THRESHOLD")
 ADMIN_PASSWORD = settings.get("ADMIN_PASSWORD")
 register_button = None
 encodings_file = "encodings.pickle"
@@ -71,16 +70,16 @@ def update_settings(config_file_dir):
     with open(config_file_dir, 'r') as settings_file:
         settings_data = json.load(settings_file)
 
-    settings_data["EAR_THRESH"] = float(EAR_THRESH)
-    settings_data["BLINK_CONSEC_FRAMES"] = float(BLINK_CONSEC_FRAMES)
-    settings_data["COUNTER"] = int(COUNTER)
-    settings_data["BLINKS_REQUIRED"] = int(BLINKS_REQUIRED)
-    settings_data["FRAME_WIDTH"] = int(FRAME_WIDTH)
-    settings_data["FACE_DISTANCE_THRESHOLD"] = float(FACE_DISTANCE_THRESHOLD)
+    settings_data["EAR_THRESH"] = EAR_THRESH
+    settings_data["BLINK_CONSEC_FRAMES"] = BLINK_CONSEC_FRAMES
+    settings_data["COUNTER"] = COUNTER
+    settings_data["BLINKS_REQUIRED"] = BLINKS_REQUIRED
+    settings_data["FRAME_WIDTH"] = FRAME_WIDTH
+    settings_data["FACE_DISTANCE_THRESHOLD"] = FACE_DISTANCE_THRESHOLD
     settings_data["ADMIN_PASSWORD"] = ADMIN_PASSWORD
     settings_data["UNMATCH_BOX_COLOR"] = UNMATCH_BOX_COLOR
     settings_data["NEAREST_FACE_METHOD"] = NEAREST_FACE_METHOD
-    settings_data["zoom_level"] = float(zoom_level)
+    settings_data["zoom_level"] = zoom_level
 
     with open(config_file_dir, 'w') as new_settings_file:
         json.dump(settings_data, new_settings_file, indent=2)
@@ -263,49 +262,41 @@ def create_specified_buttons(frame, allowed_buttons):
 def open_settings_window():
     settings_window = tk.Toplevel(window)
     settings_window.title("Settings")
-    settings_window.geometry("400x400")
+    tk.Label(settings_window, text="Zoom Level:").pack()
+    zoom_level_entry = tk.Entry(settings_window)
 
-    settings_frame = tk.Frame(settings_window, padx=10, pady=10)
-    settings_frame.pack(fill="both", expand=True)
+    tk.Label(settings_window, text="Zoom Level:").pack()
+    zoom_level_entry = tk.Entry(settings_window)
 
-    # EAR Threshold
-    tk.Label(settings_frame, text="EAR Threshold:").grid(row=0, column=0, sticky="w")
-    ear_thresh_entry = tk.Entry(settings_frame)
-    ear_thresh_entry.insert(0, str(EAR_THRESH))
-    ear_thresh_entry.grid(row=0, column=1)
-
-    # Zoom Level
-    tk.Label(settings_frame, text="Zoom Level:").grid(row=1, column=0, sticky="w")
-    zoom_level_entry = tk.Entry(settings_frame)
     zoom_level_entry.insert(0, str(zoom_level))
-    zoom_level_entry.grid(row=1, column=1)
+    zoom_level_entry.pack()
 
-    # BLINKS_REQUIRED
-    tk.Label(settings_frame, text="BLINKS_REQUIRED:").grid(row=2, column=0, sticky="w")
-    blink_req_entry = tk.Entry(settings_frame)
-    blink_req_entry.insert(0, str(BLINKS_REQUIRED))
-    blink_req_entry.grid(row=2, column=1)
+    try:
+        available_cameras = utils.frame_handling.get_available_cameras()
+    except Exception as e:
+        tk.Label(settings_window, text=f"Error: {str(e)}").pack()
+        available_cameras = []
 
-    # FACE_DISTANCE_THRESHOLD
-    tk.Label(settings_frame, text="FACE_DISTANCE_THRESHOLD:").grid(row=3, column=0, sticky="w")
-    FACE_DISTANCE_THRESHOLD_entry = tk.Entry(settings_frame)
-    FACE_DISTANCE_THRESHOLD_entry.insert(0, str(FACE_DISTANCE_THRESHOLD))
-    FACE_DISTANCE_THRESHOLD_entry.grid(row=3, column=1)
+    if available_cameras:
+        tk.Label(settings_window, text="Select Camera:").pack()
+        camera_var = tk.StringVar()
+        camera_var.set(str(available_cameras[0]))
+        camera_dropdown = tk.OptionMenu(settings_window, camera_var, *map(str, available_cameras))
+        camera_dropdown.pack()
 
-    # Apply Button
-    apply_button = tk.Button(settings_frame, text="Apply", command=lambda: apply_settings(ear_thresh_entry.get(),
-                                                                                          zoom_level_entry.get(),
-                                                                                          blink_req_entry.get(),
-                                                                                          FACE_DISTANCE_THRESHOLD_entry.get()))
-    apply_button.grid(row=4, column=0, columnspan=2)
+    def apply_settings():
+        global zoom_level, cap
+        zoom_level = int(zoom_level_entry.get())
+        if cap:
+            cap.release()
 
-    def apply_settings(ear_thresh, zoom_lvl, blinks_req,FACE_DISTANCE_THRESHOLD_val):
-        global EAR_THRESH, zoom_level, BLINKS_REQUIRED, FACE_DISTANCE_THRESHOLD
-        EAR_THRESH = float(ear_thresh)
-        zoom_level = int(zoom_lvl)
-        BLINKS_REQUIRED = int(blinks_req)
-        FACE_DISTANCE_THRESHOLD = float(FACE_DISTANCE_THRESHOLD_val)
+        if available_cameras:
+            selected_camera = int(camera_var.get())
+            cap = cv2.VideoCapture(selected_camera, cv2.CAP_DSHOW)
 
+        settings_window.destroy()
+
+    tk.Button(settings_window, text="Apply", command=apply_settings).pack()
 
 
 gear_img_dir = os.path.join(script_dir, "images\gear.jpg")
@@ -316,7 +307,7 @@ gear_button = tk.Button(window, image=gear_icon, command=open_settings_window)
 gear_button.place(relx=0.97, rely=0.03, anchor="ne")
 
 
-button_list = ["view"]
+button_list = []
 create_specified_buttons(frame_controls, button_list)
 
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)

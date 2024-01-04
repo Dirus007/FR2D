@@ -1,8 +1,7 @@
 {
-  "EAR_THRESH": 0.2,
-  "BLINK_CONSEC_FRAMES": 0.0,
-  "COUNTER": 0,
-  "BLINKS_REQUIRED": 10,
+  "EAR_THRESH": 0.24,
+  "BLINK_CONSEC_FRAMES": 2,
+  "BLINKS_REQUIRED": 4,
   "FRAME_WIDTH": 500,
   "FACE_DISTANCE_THRESHOLD": 0.45,
   "ADMIN_PASSWORD": "admin",
@@ -17,6 +16,5 @@
     0
   ],
   "NEAREST_FACE_METHOD": "euclidean",
-  "zoom_level": 115.0,
-  "save_as_button_padding": 10
+  "zoom_level": 100
 }
